@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServerName Minecraft Server</title>
+    <title>DustySMP Server Status</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -44,7 +44,7 @@
             background-color: #4cae4c;
         }
         .error {
-            color: white;
+            color: red;
             margin-top: 10px;
         }
         .admin-button {
@@ -60,7 +60,21 @@
             cursor: pointer;
         }
         .admin-button:hover {
+            background-color: #4cae4c;
+        }
+        .view-announcements-button {
+            position: absolute;
+            top: 20px;
             background-color: #5cb85c;
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .view-announcements-button:hover {
+            background-color: #4cae4c;
         }
         .modal {
             display: none;
@@ -96,6 +110,11 @@
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 999;
         }
+        .announcements {
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body>
@@ -103,6 +122,7 @@
         <h1>DustySMP</h1>
         <p>The BEST 24/7 Kingdom of Daldar server with over 270 mods!</p>
     </header>
+    <button class="view-announcements-button" onclick="openAnnouncements()">View Announcements</button>
     <div class="container">
         <div class="info">
             <strong>Server IP:</strong> info-people.gl.joinmc.link
@@ -125,6 +145,15 @@
         <input type="password" id="adminPassword" placeholder="Enter Password">
         <button onclick="checkPassword()">Submit</button>
         <p id="adminMessage"></p>
+    </div>
+
+    <div class="overlay" id="announcementOverlay" onclick="closeAnnouncements()"></div>
+    <div class="modal" id="announcementModal">
+        <h2>Announcements</h2>
+        <div class="announcements">
+            <p><strong>1/23/25</strong> Server launching soon! Stay tuned and regularly check the website for details.</p>
+        </div>
+        <button onclick="closeAnnouncements()">Close</button>
     </div>
 
     <script>
@@ -178,9 +207,19 @@
                 message.style.color = "#5cb85c";
                 message.textContent = "SSH IP: file-mai.gl.at.ply.gg:29376";
             } else {
-                message.style.color = "white";
+                message.style.color = "red";
                 message.textContent = "Incorrect password.";
             }
+        }
+
+        function openAnnouncements() {
+            document.getElementById("announcementOverlay").style.display = "block";
+            document.getElementById("announcementModal").style.display = "block";
+        }
+
+        function closeAnnouncements() {
+            document.getElementById("announcementOverlay").style.display = "none";
+            document.getElementById("announcementModal").style.display = "none";
         }
 
         // Fetch data when the page loads
