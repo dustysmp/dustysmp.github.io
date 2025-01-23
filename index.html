@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DustySMP</title>
+    <title>ServerName Minecraft Server</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,35 +47,95 @@
             color: red;
             margin-top: 10px;
         }
+        .admin-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .admin-button:hover {
+            background-color: #0056b3;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #3e3e3e;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 1000;
+        }
+        .modal input {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        .modal button {
+            margin-top: 10px;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>DustySMP</h1>
-        <p>The BEST 24/7 Kingdom of Daldar Server with over 270 mods!</p>
+        <h1>Welcome to the ServerName Minecraft Server!</h1>
+        <p>Join us for an amazing Minecraft experience.</p>
     </header>
     <div class="container">
         <div class="info">
-            <strong>Server IP:</strong> 3.138.45.170:13023
+            <strong>Server IP:</strong> play.servername.com
         </div>
         <div class="info">
-            <strong>Port:</strong> 25565
+            <strong>Live Player Count:</strong> <span id="playerCount">Fetching...</span>
         </div>
         <div class="info">
             <strong>Live MOTD:</strong> <span id="motd">Fetching...</span>
         </div>
-        <button onclick="fetchServerData()">Refresh MOTD</button>
+        <button onclick="fetchServerData()">Refresh Data</button>
         <div class="error" id="error"></div>
     </div>
 
+    <button class="admin-button" onclick="openModal()">Admin Login</button>
+
+    <div class="overlay" id="overlay" onclick="closeModal()"></div>
+    <div class="modal" id="adminModal">
+        <h2>Admin Login</h2>
+        <input type="password" id="adminPassword" placeholder="Enter Password">
+        <button onclick="checkPassword()">Submit</button>
+        <p id="adminMessage"></p>
+    </div>
+
     <script>
-        const serverIP = "3.138.45.170:13023";
-        const serverPort = "25565";
+        const serverIP = "play.servername.com";
 
         async function fetchServerData() {
             const motdElement = document.getElementById("motd");
+            const playerCountElement = document.getElementById("playerCount");
             const errorElement = document.getElementById("error");
             motdElement.textContent = "Fetching...";
+            playerCountElement.textContent = "Fetching...";
             errorElement.textContent = "";
 
             try {
@@ -88,12 +148,38 @@
 
                 if (data.online) {
                     motdElement.innerHTML = data.motd.html.join("<br>");
+                    playerCountElement.textContent = `${data.players.online} / ${data.players.max}`;
                 } else {
                     motdElement.textContent = "Server is offline.";
+                    playerCountElement.textContent = "N/A";
                 }
             } catch (error) {
                 motdElement.textContent = "";
+                playerCountElement.textContent = "";
                 errorElement.textContent = error.message;
+            }
+        }
+
+        function openModal() {
+            document.getElementById("overlay").style.display = "block";
+            document.getElementById("adminModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("overlay").style.display = "none";
+            document.getElementById("adminModal").style.display = "none";
+        }
+
+        function checkPassword() {
+            const password = document.getElementById("adminPassword").value;
+            const message = document.getElementById("adminMessage");
+
+            if (password === "dustyisc00l") {
+                message.style.color = "#5cb85c";
+                message.textContent = "SSH IP: ssh.ip.here";
+            } else {
+                message.style.color = "red";
+                message.textContent = "Incorrect password.";
             }
         }
 
