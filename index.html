@@ -44,14 +44,14 @@
             background-color: #4cae4c;
         }
         .error {
-            color: red;
+            color: white;
             margin-top: 10px;
         }
         .admin-button {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #007bff;
+            background-color: #5cb85c;
             color: white;
             padding: 10px 20px;
             font-size: 14px;
@@ -60,7 +60,7 @@
             cursor: pointer;
         }
         .admin-button:hover {
-            background-color: #0056b3;
+            background-color: #5cb85c;
         }
         .modal {
             display: none;
@@ -100,18 +100,18 @@
 </head>
 <body>
     <header>
-        <h1>Welcome to the ServerName Minecraft Server!</h1>
-        <p>Join us for an amazing Minecraft experience.</p>
+        <h1>DustySMP</h1>
+        <p>The BEST 24/7 Kingdom of Daldar server with over 270 mods!</p>
     </header>
     <div class="container">
         <div class="info">
-            <strong>Server IP:</strong> play.servername.com
+            <strong>Server IP:</strong> info-people.gl.joinmc.link
         </div>
         <div class="info">
-            <strong>Live Player Count:</strong> <span id="playerCount">Fetching...</span>
+            <strong>Online:</strong> <span id="playerCount">Fetching...</span>
         </div>
         <div class="info">
-            <strong>Live MOTD:</strong> <span id="motd">Fetching...</span>
+            <strong>MOTD:</strong> <span id="motd">Fetching...</span>
         </div>
         <button onclick="fetchServerData()">Refresh Data</button>
         <div class="error" id="error"></div>
@@ -128,7 +128,7 @@
     </div>
 
     <script>
-        const serverIP = "play.servername.com";
+        const serverIP = "info-people.gl.joinmc.link";
 
         async function fetchServerData() {
             const motdElement = document.getElementById("motd");
@@ -178,7 +178,7 @@
                 message.style.color = "#5cb85c";
                 message.textContent = "SSH IP: ssh.ip.here";
             } else {
-                message.style.color = "red";
+                message.style.color = "white";
                 message.textContent = "Incorrect password.";
             }
         }
